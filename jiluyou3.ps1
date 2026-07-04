@@ -1,14 +1,14 @@
 param(
-    [string]$local_token,
     [string]$uuid
+    [string]$local_token,
 )
 
 # 如果没有传参，就交互式输入
-if (-not $local_token) {
-    $local_token = Read-Host "请输入 local_token"
-}
 if (-not $uuid) {
     $uuid = Read-Host "请输入 uuid"
+}
+if (-not $local_token) {
+    $local_token = Read-Host "请输入 local_token"
 }
 
 # Base64 解码 local_token
