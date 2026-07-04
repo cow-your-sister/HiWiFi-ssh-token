@@ -10,10 +10,10 @@ def sha1(data):
     return hashlib.sha1(data).digest()
 
 if __name__ == '__main__':
-    # 手动输入 local_token 和 uuid
-    local_token = input("请输入 local_token: ").strip()
+    # 手动输入 uuid 和 local_token 
     uuid = input("请输入 uuid: ").strip()
-
+    local_token = input("请输入 local_token: ").strip()
+    
     # 解析 local_token
     mac, ssh, t, hmacstr = base64.b64decode(local_token).split(b",", 3)
     message = "{},ssh,{}".format(mac.decode(), int(t) + 1).encode()
