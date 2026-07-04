@@ -21,14 +21,16 @@ def sha1(data):
 
 
 if __name__ == '__main__':
-    local_token = urlopen("http://192.168.199.1//local-ssh/api?method=get")["data"]
-    print("local token:" + local_token)
-    mac, ssh, t, hmacstr = base64.b64decode(local_token).split(b",", 3)
-    message = "{},ssh,{}".format(mac.decode(), int(t) + 1).encode()
 
     uuid = urlopen("http://192.168.199.1/cgi-bin/turbo/proxy/router_info")["data"]["uuid"]
     print("uuid:" + uuid)
     key = sha1(uuid.encode())
+    
+    local_token = urlopen("http://192.168.199.1//local-ssh/api?method=get")["data"]
+    print("local token:" + local_token)
+    mac, ssh, t, hmacstr = base64.b64decode(local_token).split(b",", 3)
+    message = "{},ssh,{}".format(mac.decode(), int(t) + 1).encode()
+    
     h = get_hmac_sha1(message, key)
     print("cloud token:" + h)
 
